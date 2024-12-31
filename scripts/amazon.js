@@ -1,3 +1,6 @@
+import {cart} from '../data/cart.js';
+import {products} from '../data/products.js';
+
 let productHTML = '';
 
 products.forEach((product)=>{
@@ -92,6 +95,6 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
         
         setTimeout(()=>{
           message.classList.remove('js-added-to-cart');
-        }, 2000);
+        }, 1500);
     });
 });
