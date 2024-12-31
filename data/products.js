@@ -103,8 +103,16 @@ const products = [
       "sweaters",
       "apparel"
     ]
-  },
-  {
+  },{
+    id: '1019c5f2-d70e-4022-b2cc-2ce9edc15b3c',
+    image: 'images/products/samsung-laptop.jpg',
+    name: 'Samsung Galaxy Book2 (NP750) Intel 12th Gen core i7 ',
+    rating:{
+      stars: 4,
+      count: 84
+    },
+    priceCents: 93508
+  },{
     id: "77919bbe-0e56-475b-adde-4f24dfed3a04",
     image: "images/products/luxury-tower-set-6-piece.jpg",
     name: "Luxury Towel Set - Graphite Gray",
