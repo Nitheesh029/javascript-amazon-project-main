@@ -7,7 +7,7 @@ import {
 import { products } from "../data/products.js";
 import { formatCurrency } from "./util/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { deliverOptions } from "../data/deliveryOptions.js";
+import { deliveryOptions } from "../data/deliveryOptions.js";
 
 let cartSummaryHTML = "";
 
@@ -21,10 +21,10 @@ cart.forEach((cartItem) => {
     }
   });
 
-  const deliveryOptionId = cartItem.deliverOptionId;
+  let deliveryOptionId = cartItem.deliverOptionId;
   let deliveryOption;
-  deliverOptions.forEach((option) => {
-    if (option.id === deliveryOptionId) {
+  deliveryOptions.forEach((option) => {
+    if (deliveryOptionId === option.id) {
       deliveryOption = option;
     }
   });
@@ -90,7 +90,7 @@ cart.forEach((cartItem) => {
 function deliveryOptionsHTML(matchingProduct, cartItem) {
   let html = "";
 
-  deliverOptions.forEach((deliveryOption) => {
+  deliveryOptions.forEach((deliveryOption) => {
     const today = dayjs();
     const dateString = today
       .add(deliveryOption.deliveryDays, "days")
