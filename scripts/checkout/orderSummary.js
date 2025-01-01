@@ -5,31 +5,23 @@ import {
   updateDeliveryOption,
   updateQuantity,
 } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { getProduct, products } from "../../data/products.js";
 import { formatCurrency } from "../util/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import {
+  deliveryOptions,
+  getDeliveryOption,
+} from "../../data/deliveryOptions.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
 
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
-    let matchingProduct;
+    const matchingProduct = getProduct(productId);
 
-    products.forEach((product) => {
-      if (product.id === cartItem.productId) {
-        matchingProduct = product;
-      }
-    });
-
-    let deliveryOptionId = cartItem.deliverOptionId;
-    let deliveryOption;
-    deliveryOptions.forEach((option) => {
-      if (deliveryOptionId === option.id) {
-        deliveryOption = option;
-      }
-    });
+    const deliveryOptionId = cartItem.deliveryOptionId;
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
@@ -101,7 +93,7 @@ export function renderOrderSummary() {
           ? "FREE"
           : `$${formatCurrency(deliveryOption.priceCents)} -`;
 
-      const isChecked = deliveryOption.id === cartItem.deliverOptionId;
+      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
       html += `
           <div class="delivery-option js-delivery-option"
