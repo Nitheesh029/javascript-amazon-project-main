@@ -12,6 +12,7 @@ import {
   deliveryOptions,
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -28,56 +29,56 @@ export function renderOrderSummary() {
     const dateString = deliveryDate.format("dddd, MMMM D");
 
     cartSummaryHTML += `
-        <div class="cart-item-container 
-        js-cart-item-container-${matchingProduct.id}">
-                <div class="delivery-date">
-                  Delivery date: ${dateString}
-                </div>
-  
-                <div class="cart-item-details-grid">
-                  <img class="product-image"
-                    src="${matchingProduct.image}">
-  
-                  <div class="cart-item-details">
-                    <div class="product-name">
-                    ${matchingProduct.name}
-                    </div>
-                    <div class="product-price">
-                    $${formatCurrency(matchingProduct.priceCents)}   
-                    </div>
-                    <div class="product-quantity">
-                      <span>
-                        Quantity: <span class="quantity-label js-quantity-label-${
-                          matchingProduct.id
-                        }">${cartItem.quantity}</span>
-                      </span>
-                      <span class="update-quantity-link link-primary js-update-link" data-product-id="${
-                        matchingProduct.id
-                      }">
-                        Update
-                      </span>
-                      <input class="quantity-input js-quantity-input-${
-                        matchingProduct.id
-                      }">
-                      <span class="save-quantity-link link-primary js-save-quantity-link" data-product-id="${
-                        matchingProduct.id
-                      }">Save</span>
-                      <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
-                        matchingProduct.id
-                      }">
-                        Delete
-                      </span>
-                    </div>
-                  </div>
-  
-                  <div class="delivery-options js-delivery-options">
-                    <div class="delivery-options-title">
-                      Choose a delivery option:
-                    </div>
-                    ${deliveryOptionsHTML(matchingProduct, cartItem)}
-                  </div>
-                </div>
-              </div>`;
+    <div class="cart-item-container 
+    js-cart-item-container-${matchingProduct.id}">
+          <div class="delivery-date">
+            Delivery date: ${dateString}
+          </div>
+
+          <div class="cart-item-details-grid">
+            <img class="product-image"
+              src="${matchingProduct.image}">
+
+            <div class="cart-item-details">
+              <div class="product-name">
+              ${matchingProduct.name}
+              </div>
+              <div class="product-price">
+              $${formatCurrency(matchingProduct.priceCents)}   
+              </div>
+              <div class="product-quantity">
+                <span>
+                  Quantity: <span class="quantity-label js-quantity-label-${
+                    matchingProduct.id
+                  }">${cartItem.quantity}</span>
+                </span>
+                <span class="update-quantity-link link-primary js-update-link" data-product-id="${
+                  matchingProduct.id
+                }">
+                  Update
+                </span>
+                <input class="quantity-input js-quantity-input-${
+                  matchingProduct.id
+                }">
+                <span class="save-quantity-link link-primary js-save-quantity-link" data-product-id="${
+                  matchingProduct.id
+                }">Save</span>
+                <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
+                  matchingProduct.id
+                }">
+                  Delete
+                </span>
+              </div>
+            </div>
+
+            <div class="delivery-options js-delivery-options">
+              <div class="delivery-options-title">
+                Choose a delivery option:
+              </div>
+              ${deliveryOptionsHTML(matchingProduct, cartItem)}
+            </div>
+          </div>
+        </div>`;
   });
 
   function deliveryOptionsHTML(matchingProduct, cartItem) {
@@ -113,6 +114,7 @@ export function renderOrderSummary() {
             </div>
           </div>
         `;
+      renderPaymentSummary();
     });
 
     return html;
@@ -130,6 +132,8 @@ export function renderOrderSummary() {
       );
       container.remove();
       updateCartQuantity();
+
+      renderPaymentSummary();
     });
   });
 
@@ -180,6 +184,7 @@ export function renderOrderSummary() {
       quantityLabel.innerHTML = newQuantity;
 
       updateCartQuantity();
+      renderPaymentSummary();
     });
   });
 
