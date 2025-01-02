@@ -13,6 +13,7 @@ import {
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkHeader.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -131,19 +132,11 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${productId}`
       );
       container.remove();
-      updateCartQuantity();
+      renderCheckoutHeader();
 
       renderPaymentSummary();
     });
   });
-
-  function updateCartQuantity() {
-    document.querySelector(
-      ".js-quantity-count"
-    ).innerHTML = `${calculateCartQuantity()} items`;
-  }
-
-  updateCartQuantity();
 
   document.querySelectorAll(".js-update-link").forEach((link) => {
     link.addEventListener("click", () => {
@@ -183,7 +176,7 @@ export function renderOrderSummary() {
 
       quantityLabel.innerHTML = newQuantity;
 
-      updateCartQuantity();
+      renderCheckoutHeader();
       renderPaymentSummary();
     });
   });
